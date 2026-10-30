@@ -8,8 +8,7 @@ import { countPostWords, formatPostFullDate, formatPostWordCount, getMarkdownEnt
 import { render } from 'astro:content'
 
 export async function getStaticPaths() {
-  // The use page has its own route, which renders its devices around the markdown.
-  const entries = (await getMarkdownEntries()).filter((entry) => entry.data.link !== 'use')
+  const entries = await getMarkdownEntries()
   // A post links on to the ones published just before and after it, newest first.
   const posts = entries.filter((entry) => entry.collection === 'posts')
   const getNeighbor = (index: number) => {

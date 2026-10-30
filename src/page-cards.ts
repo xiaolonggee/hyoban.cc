@@ -9,7 +9,6 @@ import cities from '@/data/boundaries/cities.json'
 import { buildYearReview, getReviewYears } from '@/year-review'
 import type { FogRegions } from '@hyoban/trip-map'
 import { getTripCovers } from '@/moments/trip-images'
-import { getMediaPosters } from '@/media-card'
 import type { APIRoute } from 'astro'
 import { createHash } from 'node:crypto'
 import { getDocumentTitle, getMapHeading, getTripListHeading } from '@/trip-map'
@@ -39,7 +38,7 @@ import {
 
 // The share cards of the pages without one of their own, a post's, a trip's or a
 // Moment's: the calendar's months and days, the map's, the trip lists, the year reviews
-// and the media page.
+// and the year reviews.
 // Drawn by /og/pages/<path>.jpg, or .png for a card of words alone, with shorter text
 // beside their visual panels.
 
@@ -50,11 +49,6 @@ export interface PageText {
 }
 
 export const CALENDAR_DESCRIPTION = '随手拍的照片，和想记住的小事。'
-export const MEDIA_TEXT: PageText = {
-  heading: '影视推荐',
-  description: '我喜欢的电影、剧集和动画。',
-}
-
 export function getPageTitle({ heading }: Pick<PageText, 'heading'>) {
   return getDocumentTitle(heading)
 }
@@ -300,14 +294,5 @@ async function loadPageCards(): Promise<Array<{ path: string; card: PageCard }>>
     },
   })
 
-  const media = getMediaPosters()
-  cards.push({
-    path: '/media/',
-    card: {
-      title: MEDIA_TEXT.heading,
-      detail: `${media.count} 部作品`,
-      panel: media.photos.length ? { kind: 'posters', photos: media.photos } : undefined,
-    },
-  })
   return cards
 }

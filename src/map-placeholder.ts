@@ -82,6 +82,9 @@ async function getPeriodKeys() {
 /** The periods with pictures of their own: the others share one. */
 export async function getMapPlaceholderKeys() {
   if (!(await canDrawMapPlaceholders())) return []
+  // Empty shell / no geotagged moments: skip Static Images (camera would be NaN).
+  const groups = getMappedLocationGroups(await getMoments())
+  if (groups.length === 0) return []
   return [...new Set((await getPictures()).values())].map((picture) => picture.key)
 }
 

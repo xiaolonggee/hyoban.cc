@@ -160,7 +160,7 @@ const devices = Object.entries(readDevices())
   .map(([id, device]) => ({
     ...device,
     // Its own post, when one was written about it.
-    href: postLinks.has(id) ? `/${id}/` : '/use/',
+    href: postLinks.has(id) ? `/${id}/` : '/',
   }))
 const devicesSpent = devices.reduce((total, device) => total + device.bought.price, 0)
 const between = (start: string, end: string) =>
