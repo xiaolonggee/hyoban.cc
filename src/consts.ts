@@ -13,7 +13,7 @@ export const CALENDAR_DESKTOP_MEDIA = '(min-width: 56.0625rem)'
 export const BLANK_IMAGE =
   'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
-/** Local placeholder avatar under public/ (theme shell; replace with your own later). */
+/** Site avatar from X @Canon_Black (local copies under public/). */
 export const SITE_AVATAR = {
   favicon: '/avatar-64.png',
   header: '/avatar-80.webp',
