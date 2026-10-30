@@ -17,7 +17,7 @@ import type { Place, VehicleCharge, VehicleExpense } from '@hyoban/data-spec'
 
 export interface CarSummary {
   days: Map<string, number>
-  span: { start: string; end: string }
+  span: { start: string; end: string } | undefined
   /** Every charge, oldest first. */
   charges: VehicleCharge[]
   /** The ledger from the car's first payment on, oldest first. */

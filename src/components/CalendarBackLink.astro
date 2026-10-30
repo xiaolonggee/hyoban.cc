@@ -1,10 +1,9 @@
 ---
-import { getAssetUrl } from '@/asset-url'
-import { SITE_TITLE } from '@/consts'
+import { SITE_AVATAR, SITE_TITLE } from '@/consts'
 ---
 
 <a class="calendar-back-link" href="/" aria-label={`返回 ${SITE_TITLE} 首页`}>
-  <img src={getAssetUrl('site/avatar-80.webp')} alt="" width="24" height="24" />
+  <img src={SITE_AVATAR.header} alt="" width="24" height="24" />
   <span class="calendar-back-link__name">{SITE_TITLE}</span>
 </a>
 

@@ -1,4 +1,5 @@
 import { getSeed, SEED_PARAMETER } from './year-random.ts'
+import { SITE_TITLE, SITE_URL } from '@/consts'
 
 // A year review as pictures to share: the page's own content drawn in the browser by
 // modern-screenshot, everything shown at once as it ends up. As one long picture with the
@@ -219,7 +220,7 @@ function drawSquares({ canvas, scale, width, blocks }: Drawing, mark: string) {
     context.fillStyle = style.getPropertyValue('--color-tx-3')
     const baseline = side - PADDING.y / 2
     context.textAlign = 'left'
-    context.fillText('Hyoban', PADDING.x, baseline)
+    context.fillText(SITE_TITLE, PADDING.x, baseline)
     context.textAlign = 'right'
     context.fillText(`${mark}\u2003${index + 1}/${squares.length}`, side - PADDING.x, baseline)
     return square
@@ -260,11 +261,16 @@ export async function drawPictures(mode: Mode, content: HTMLElement, year: strin
   const frame = mode === 'square' || innerWidth > FRAME_WIDTH ? await openWide() : undefined
   try {
     const drawing = await drawYear(frame?.content ?? content)
-    const canvases = mode === 'long' ? [drawing.canvas] : drawSquares(drawing, `hyoban.cc/${year}`)
+    const siteHost = new URL(SITE_URL).host
+    const canvases =
+      mode === 'long' ? [drawing.canvas] : drawSquares(drawing, `${siteHost}/${year}`)
     // Encoded before the frame goes: a canvas of its page draws nothing once it's gone.
     return await Promise.all(
       canvases.map(async (canvas, index) => {
-        const name = mode === 'long' ? `hyoban-${year}.jpg` : `hyoban-${year}-${index + 1}.jpg`
+        const name =
+          mode === 'long'
+            ? `${SITE_TITLE.toLowerCase()}-${year}.jpg`
+            : `${SITE_TITLE.toLowerCase()}-${year}-${index + 1}.jpg`
         return new File([await toJpeg(canvas)], name, { type: 'image/jpeg' })
       }),
     )

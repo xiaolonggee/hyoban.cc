@@ -4,6 +4,7 @@ import SitePage from '@/components/SitePage.astro'
 import YearFootprint from '@/components/YearFootprint.astro'
 import YearMosaic from '@/components/YearMosaic.astro'
 import cities from '@/data/boundaries/cities.json'
+import { SITE_AVATAR, SITE_TITLE, SITE_URL } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
 import {
   getMomentHeadline,
@@ -54,7 +55,8 @@ const { span: carSpan } = await getCarSummary()
 // Only the years the car's records reach into, from its first day to the latest capture,
 // and a life with a car in it.
 const drove =
-  life || (carSpan.start.slice(0, 4) <= String(year) && String(year) <= carSpan.end.slice(0, 4))
+  Boolean(carSpan?.start) &&
+  (life || (carSpan.start.slice(0, 4) <= String(year) && String(year) <= carSpan.end.slice(0, 4)))
 const regions = cities as FogRegions
 const numberFormat = new Intl.NumberFormat('zh-CN')
 const formatNumber = (value: number) => numberFormat.format(value)
@@ -570,9 +572,9 @@ const highlights = [
     {/* The site's mark at the foot of the share picture, seen only while it is drawn: its
         avatar waits, hidden, until then, when the drawing has it loaded. */}
     <footer class="year-share-mark" aria-hidden="true">
-      <img src={getAssetUrl('site/avatar-80.webp')} alt="" width="40" height="40" loading="lazy" />
-      <span>Hyoban</span>
-      <span class="year-share-mark__url">hyoban.cc/{shareKey}</span>
+      <img src={SITE_AVATAR.header} alt="" width="40" height="40" loading="lazy" />
+      <span>{SITE_TITLE}</span>
+      <span class="year-share-mark__url">{new URL(SITE_URL).host}/{shareKey}</span>
     </footer>
     {/* As soon as the page is read: the year's hand finished (src/year-random.ts). */}
     <script is:inline set:html={`(${dealYear})('finish')`} />

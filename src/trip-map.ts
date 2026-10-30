@@ -1,6 +1,5 @@
 import { resolveMessages } from '@hyoban/trip-map'
-import { SITE_TITLE, SITE_URL } from '@/consts'
-import { getAssetUrl } from '@/asset-url'
+import { SITE_AVATAR, SITE_TITLE, SITE_URL } from '@/consts'
 import { CAR_MODEL } from '@/car-model'
 import type { MomentTrip } from '@/moments'
 import { tripVideoMusic } from '@/data/music'
@@ -13,7 +12,7 @@ export const tripMapMessages = resolveMessages({
   videoTitle: '哔哩哔哩视频',
 })
 
-export const tripMapBrand = { image: getAssetUrl('site/avatar-80.webp'), name: SITE_TITLE }
+export const tripMapBrand = { image: SITE_AVATAR.header, name: SITE_TITLE }
 
 /** The 007GT of the year review (src/car-model.ts), in its lighter cut, small enough on the
  * map, driving trips flown over. */

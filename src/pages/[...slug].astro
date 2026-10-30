@@ -1,6 +1,7 @@
 ---
 import SitePage from '@/components/SitePage.astro'
 import Layout from '@/layouts/Layout.astro'
+import { SITE_TITLE } from '@/consts'
 import { getPageTitle } from '@/page-cards'
 import { getPostCardPath } from '@/post-cards'
 import { countPostWords, formatPostFullDate, formatPostWordCount, getMarkdownEntries, type PostEntry } from '@/utils'
@@ -34,9 +35,8 @@ const { entry, newer, older } = Astro.props as Props
 const post = entry.collection === 'posts' ? (entry as PostEntry) : null
 const article = post
   ? {
-      author: 'Hyoban',
+      author: SITE_TITLE,
       publishedTime: post.data.pubDate.toISOString(),
-      telegramChannel: '@hyoban',
     }
   : undefined
 const wordCount = post ? countPostWords(post.body ?? '') : 0

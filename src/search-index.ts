@@ -62,24 +62,8 @@ async function loadSearchEntries() {
   return [...moments, ...posts]
 }
 
-/** The words the empty search overlay offers, picked by hand from what the Moments are about. */
-const HOT_WORDS = [
-  '自驾',
-  '露营',
-  '床车',
-  '充电',
-  '海边',
-  '雪山',
-  '日出',
-  '晚霞',
-  '月亮',
-  '古镇',
-  '烧烤',
-  '咖啡',
-  '骑行',
-  '相机',
-  'GitHub',
-]
+/** The words the empty search overlay offers. Empty until you have posts/moments to match. */
+const HOT_WORDS: string[] = []
 
 /** The hot words with how many entries each finds; one that finds none fails the build. */
 export async function getHotWords() {

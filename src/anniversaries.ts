@@ -67,34 +67,7 @@ export type CalendarAnniversary = Readonly<{
   label: string
 }>
 
-const anniversaryDefinitions: readonly AnniversaryDefinition[] = [
-  defineBirthday({
-    birthYear: 1999,
-    date: lunarDate(8, 16),
-    icon: 'i-lucide-cake-slice',
-    id: 'birthday',
-  }),
-  defineYearlyAnniversary({
-    date: gregorianDate(8, 17),
-    icon: 'i-lucide-car-front',
-    id: 'car',
-    initialLabel: '提车日',
-    name: '提车',
-    startYear: 2025,
-  }),
-  defineAnnualEvent({
-    date: gregorianDate(12, 16),
-    icon: 'i-lucide-rotate-ccw',
-    id: 'driver-license-points-reset',
-    label: '驾驶证清分',
-  }),
-  defineDatedEvent({
-    dateKey: '2028-12-16',
-    icon: 'i-lucide-calendar-clock',
-    id: 'driver-license-expiry',
-    label: '驾驶证有效期截止',
-  }),
-]
+const anniversaryDefinitions: readonly AnniversaryDefinition[] = []
 
 const chineseCalendarFormatter = new Intl.DateTimeFormat('zh-CN-u-ca-chinese', {
   day: 'numeric',
@@ -145,7 +118,7 @@ export function getCalendarAnniversaries(dateKey: string): CalendarAnniversary[]
   })
 }
 
-function defineBirthday(options: BirthdayOptions): AnniversaryDefinition {
+export function defineBirthday(options: BirthdayOptions): AnniversaryDefinition {
   const name = options.name ?? '生日'
 
   return {
@@ -158,7 +131,7 @@ function defineBirthday(options: BirthdayOptions): AnniversaryDefinition {
   }
 }
 
-function defineYearlyAnniversary(options: YearlyAnniversaryOptions): AnniversaryDefinition {
+export function defineYearlyAnniversary(options: YearlyAnniversaryOptions): AnniversaryDefinition {
   const format = ({ years }: AnniversaryOccurrence) =>
     years === 0 ? options.initialLabel : `${options.name} ${years} 周年`
 
@@ -172,7 +145,7 @@ function defineYearlyAnniversary(options: YearlyAnniversaryOptions): Anniversary
   }
 }
 
-function defineAnnualEvent(options: AnnualEventOptions): AnniversaryDefinition {
+export function defineAnnualEvent(options: AnnualEventOptions): AnniversaryDefinition {
   const description = options.description ?? options.label
 
   return {
@@ -185,7 +158,7 @@ function defineAnnualEvent(options: AnnualEventOptions): AnniversaryDefinition {
   }
 }
 
-function defineDatedEvent(options: DatedEventOptions): AnniversaryDefinition {
+export function defineDatedEvent(options: DatedEventOptions): AnniversaryDefinition {
   const year = Number.parseInt(options.dateKey.slice(0, 4), 10)
   const month = Number.parseInt(options.dateKey.slice(5, 7), 10)
   const day = Number.parseInt(options.dateKey.slice(8, 10), 10)
@@ -203,11 +176,11 @@ function defineDatedEvent(options: DatedEventOptions): AnniversaryDefinition {
   }
 }
 
-function gregorianDate(month: number, day: number): AnnualDate {
+export function gregorianDate(month: number, day: number): AnnualDate {
   return { calendar: 'gregorian', day, month }
 }
 
-function lunarDate(month: number, day: number, leapMonth = false): AnnualDate {
+export function lunarDate(month: number, day: number, leapMonth = false): AnnualDate {
   return { calendar: 'lunar', day, leapMonth, month }
 }
 

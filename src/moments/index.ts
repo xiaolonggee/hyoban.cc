@@ -179,6 +179,7 @@ const vehicleExpenses = readVehicleExpenses()
  * the detours, the driving around town and the wrong turns.
  */
 export function getMomentTripOdometer(trip: Parameters<typeof getTripOdometer>[0]) {
+  if (!vehicleSpan) return undefined
   return getTripOdometer(trip, vehicleDays, vehicleSpan, vehicleCharges)
 }
 

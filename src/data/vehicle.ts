@@ -192,6 +192,7 @@ export function getDistanceLevel(distanceMeters: number) {
 
 /** The days the records cover: from the car's first day to the latest capture. */
 export function getVehicleSpan(months: VehicleMonth[], days: VehicleDistanceDay[]) {
+  if (months.length === 0 || days.length === 0) return undefined
   const captured = months.map((month) => month.capturedAt.slice(0, 10)).sort()
   return { end: captured.at(-1)!, start: days[0]!.date }
 }

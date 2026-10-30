@@ -17,8 +17,9 @@ import { getAssetUrl, getThumbnailUrl } from '@/asset-url'
 const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Shanghai' }).format(new Date())
 const spans = getDeviceSpans(readDevices(), today)
 const events = getDeviceEvents(spans)
+const empty = spans.length === 0
 
-const firstYear = Number(spans[0]!.start.slice(0, 4))
+const firstYear = Number((spans[0]?.start ?? today).slice(0, 4))
 const lastYear = Number(today.slice(0, 4)) + 1
 const years = Array.from({ length: lastYear - firstYear }, (_, index) => firstYear + index)
 const origin = getDayNumber(`${firstYear}-01-01`)
@@ -101,7 +102,11 @@ const ROW = 1.75
 
 <h2>物品</h2>
 
-<div class="devices-timeline">
+{spans.length === 0 && (
+  <p>还没有设备记录。在 <code>data/devices.json</code> 里添加后会显示在这里。</p>
+)}
+
+<div class="devices-timeline" hidden={spans.length === 0}>
   {
     lanes.map((lane) => (
       <div class="devices-timeline__lane">
