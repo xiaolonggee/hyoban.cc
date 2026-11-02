@@ -10,7 +10,8 @@ const posts = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/posts' }),
   schema: z.object({
     title: z.string(),
-    link: z.string(),
+    // YAML may parse bare YYYY-MM-DD as a Date; coerce to the date slug string.
+    link: z.union([z.string(), z.date().transform((d) => d.toISOString().slice(0, 10))]),
     description,
     ogImage: z.url({ protocol: /^https?$/ }).optional(),
     ogDescription: description.optional(),
